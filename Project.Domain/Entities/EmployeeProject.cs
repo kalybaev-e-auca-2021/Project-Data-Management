@@ -15,12 +15,12 @@ namespace Domain.Entities
         [InverseProperty("Employees")]
         public virtual Employee? Employee { get; set; }
 
-        public int EmployeeId { get; set; }
+        public Guid EmployeeId { get; set; }
 
         [ForeignKey("ProjectId")]
         [InverseProperty("Employees")]
         public virtual Project? Project { get; set; }
 
-        public int ProjectId { get; set; }
+        public Guid ProjectId { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace Application.Common
 {
     public class AssemblyMappingProfile : Profile
     {
-        public AssemblyMappingProfile(Assembly assembly) => 
+        public AssemblyMappingProfile(Assembly assembly) =>
             ApplyMappingsFromAssembly(assembly);
 
         private void ApplyMappingsFromAssembly(Assembly assembly)
