@@ -5,10 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project.Domain.Entities
+namespace Domain.Entities
 {
     public class EmployeeProject
     {
+        public Guid Id { get; set; }
+
         [ForeignKey("EmployeeId")]
         [InverseProperty("Employees")]
         public virtual Employee? Employee { get; set; }
