@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
+using System.Reflection.Emit;
 
 namespace Infrastructure.EntityTypeConfigurations
 {
@@ -13,8 +14,9 @@ namespace Infrastructure.EntityTypeConfigurations
     {
         public void Configure(EntityTypeBuilder<Project> builder)
         {
-            builder.HasKey(r => r.Id);
-            builder.HasIndex(r => r.Id).IsUnique();
+            builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.Id).IsUnique();
+            builder.Property(x => x.Name).HasMaxLength(256);
         }
     }
 }

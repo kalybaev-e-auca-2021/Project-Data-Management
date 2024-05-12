@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Infrastructure;
+using Project.WebApi;
 namespace Notes.WebApi
 {
     public class Program
@@ -25,7 +26,7 @@ namespace Notes.WebApi
             Host.CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder =>
             {
-                webBuilder.UseStartup<StartupBase>();
+                webBuilder.UseStartup<Startup>();
             });
     }
 }

@@ -17,8 +17,8 @@ namespace Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ProjectConfiguration());
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new ProjectConfiguration());
         }
     }
 }

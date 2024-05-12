@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{81E9CA26-17C9-4E80-AACD-7E44E1249373}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{7AA7A53C-3895-48F7-A83A-BC2136A47D22}"
+	ProjectSection(SolutionItems) = preProject
+		Project.WebApi\Startup.cs = Project.WebApi\Startup.cs
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Project.Domain\Domain.csproj", "{1BCF5936-F605-43A8-AB1B-A679A12905CB}"
 EndProject

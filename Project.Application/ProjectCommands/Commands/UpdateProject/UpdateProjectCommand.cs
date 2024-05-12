@@ -13,7 +13,6 @@ namespace Application.ProjectCommands.Commands.UpdateProject
 {
     public class UpdateProjectCommand : IRequest<Guid>
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string ClientCompanyName { get; set; }
         public string PerformerCompanyName { get; set; }
@@ -32,7 +31,6 @@ namespace Application.ProjectCommands.Commands.UpdateProject
         public async Task<Guid> Handle(UpdateProjectCommand command, CancellationToken cancellationToken)
         {
             var changeProject = await _context.Projects
-                .Where(r => r.Id == command.Id)
                 .FirstOrDefaultAsync(cancellationToken);
 
             ArgumentNullException.ThrowIfNull(changeProject);
