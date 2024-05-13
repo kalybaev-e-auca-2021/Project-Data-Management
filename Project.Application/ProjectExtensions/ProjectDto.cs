@@ -15,6 +15,8 @@ namespace Application.ProjectExtensions
         public string ClientCompanyName { get; set; }
         public string PerformerCompanyName { get; set; }
         public int Priority { get; set; }
+        public DateOnly StartProjectDate { get; set; }
+        public DateOnly FinishProjectDate { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Project, ProjectDto>()
@@ -25,7 +27,11 @@ namespace Application.ProjectExtensions
                 .ForMember(dest => dest.PerformerCompanyName, opt =>
                     opt.MapFrom(src => src.PerformerCompanyName))
                 .ForMember(dest => dest.Priority, opt =>
-                    opt.MapFrom(src => src.Priority));
+                    opt.MapFrom(src => src.Priority))
+                .ForMember(dest => dest.StartProjectDate, opt =>
+                    opt.MapFrom(src => src.StartProjectDate))
+                .ForMember(dest => dest.FinishProjectDate, opt =>
+                    opt.MapFrom(src => src.FinishProjectDate));
         }
     }
 }

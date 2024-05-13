@@ -1,5 +1,7 @@
 ﻿using Application.Interfaces;
+using Application.ProjectCommands.Commands;
 using Domain.Entities;
+using FluentValidation;
 using MediatR;
 
 
@@ -11,6 +13,8 @@ namespace Application.ProjectCommands.Commands
         public string ClientCompanyName { get; set; }
         public string PerformerCompanyName { get; set; }
         public int Priority { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
     public class CreateProjectCommandHandler : IRequestHandler<CreateProjectCommand, Guid>
     {
@@ -24,17 +28,35 @@ namespace Application.ProjectCommands.Commands
             var project = new Project
             {
                 Id = Guid.NewGuid(),
-                Name = "command.Name",
-                ClientCompanyName = "command.ClientCompanyName",
-                PerformerCompanyName = "command.PerformerCompanyName",
-                Priority = 1,
-                StartProjectDate = DateTime.UtcNow,
-                FinishProjectDate = DateTime.UtcNow,
+                Name = command.Name,
+                ClientCompanyName = command.ClientCompanyName,
+                PerformerCompanyName = command.PerformerCompanyName,
+                Priority = command.Priority,
+                StartProjectDate = command.StartDate,
+                FinishProjectDate = command.EndDate,
             };
 
             await _context.Projects.AddAsync(project, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
             return project.Id;
         }
+    }
+}
+
+public class CreateProjectCommandValidator : AbstractValidator<CreateProjectCommand>
+{
+    public CreateProjectCommandValidator()
+    {
+        RuleFor(r => r.Name)
+            .NotEmpty()
+            .MaximumLength(250);
+        RuleFor(r => r.ClientCompanyName)
+            .NotEmpty()
+            .MaximumLength(250);
+        RuleFor(r => r.PerformerCompanyName)
+            .NotEmpty()
+            .MaximumLength(250);
+        RuleFor(r => r.StartDate)
+            .NotEmpty();
     }
 }

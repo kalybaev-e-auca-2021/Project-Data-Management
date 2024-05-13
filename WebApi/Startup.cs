@@ -9,6 +9,7 @@ using System.Reflection;
 using Application.Interfaces;
 using Application;
 using Infrastructure;
+using WebApi.Middleware;
 
 
 namespace Project.WebApi
@@ -49,6 +50,7 @@ namespace Project.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCustomExceptionHandler();
             app.UseRouting();
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");

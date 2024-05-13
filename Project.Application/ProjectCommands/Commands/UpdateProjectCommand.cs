@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using Application.ProjectCommands.Commands;
 using Domain.Entities;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -43,5 +44,14 @@ namespace Application.ProjectCommands.Commands
             await _context.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
+    }
+
+    public class UpdateProjectCommandValidator : AbstractValidator<UpdateProjectCommand>
+    {
+        public UpdateProjectCommandValidator() 
+        {
+            RuleFor(r => r.Id)
+                .NotEmpty();
+        }  
     }
 }

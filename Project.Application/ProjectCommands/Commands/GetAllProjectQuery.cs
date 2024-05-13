@@ -11,7 +11,6 @@ namespace Application.ProjectCommands.Commands
     public class GetAllProjectQuery : IRequest<ProjectLookUpDto>
     {
         [JsonIgnore] public ProjectLookUpDto projects { get; set; } = new();
-        public Guid Id {  get; set; }
     }
 
     public class GetAllProjectQueryHandler

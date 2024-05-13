@@ -7,6 +7,9 @@ namespace Project.WebApi.Controllers
     [Route("api/")]
     public class ProjectController : BaseController
     {
+        /// <summary>
+        /// Контроллер чтобы получить список всех проектов
+        /// </summary>
         [HttpGet("api/getProjects")]
         [ProducesResponseType(typeof(ProjectLookUpDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllProjects()
@@ -15,12 +18,21 @@ namespace Project.WebApi.Controllers
             return Ok(await Mediator.Send(query));
         }
 
-        [HttpGet("api/createProject")]
-        [ProducesResponseType(typeof(ProjectLookUpDto), StatusCodes.Status200OK)]
+        [HttpPost("api/createProject")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateProject()
         {
             var command = new CreateProjectCommand();
             return Ok(await Mediator.Send(command));
         }
+
+        [HttpDelete("api/deleteProject")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        public async Task<IActionResult> DeleteProject(Guid Id)
+        {
+            var command = new DeleteProjectCommand { ProjectId = Id };
+            return Ok(await Mediator.Send(command));
+        }
+
     }
 }
