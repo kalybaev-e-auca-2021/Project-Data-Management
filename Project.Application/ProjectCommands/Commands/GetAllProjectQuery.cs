@@ -31,9 +31,9 @@ namespace Application.ProjectCommands.Commands
             CancellationToken cancellationToken)
         {
             var projects = GetProjects();
-            //request.projects.Projects = await projects
-            //    .ProjectTo<ProjectLookUpDto>(_mapper.ConfigurationProvider)
-            //    .ToListAsync(cancellationToken);
+            request.projects.Projects = await projects
+                .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
             return request.projects;
 
         }
