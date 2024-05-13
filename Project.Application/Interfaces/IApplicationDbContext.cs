@@ -10,9 +10,6 @@ namespace Application.Interfaces
     {
         DbSet<Project> Projects { get; set; }
 
-        DbSet<Employee> Employees { get; set; }
-
-        DbSet<EmployeeProject> EmployeesProjects { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

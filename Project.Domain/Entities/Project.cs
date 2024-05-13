@@ -17,7 +17,6 @@ namespace Domain.Entities
         public DateTime StartProjectDate { get; set; }
         public DateTime FinishProjectDate { get; set; }
 
-        //[InverseProperty("Project")]
-        //public virtual ICollection<EmployeeProject> Employees { get; set; }
+        public Guid Employee { get; set; }
     }
 }

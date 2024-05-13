@@ -17,8 +17,7 @@ namespace Domain.Entities
         public string LastName { get; set; }
         public string SurName { get; set; }
         public string Email { get; set; }
-
-        //[InverseProperty("Employee")]
-        //public virtual ICollection<EmployeeProject> Employees { get; set; }
+        
+        public Guid ProjectId { get; set; }
     }
 }

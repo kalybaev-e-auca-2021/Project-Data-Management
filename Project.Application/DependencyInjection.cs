@@ -9,13 +9,7 @@ namespace Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            services.AddAutoMapper(assembly);
-            services.AddMediatR(cfg =>
-            {
-                cfg.RegisterServicesFromAssembly(assembly);
-                cfg.NotificationPublisher = new ForeachAwaitPublisher();
-            });
+            services.AddMediatR(Assembly.GetExecutingAssembly());
             return services;
         }
     }

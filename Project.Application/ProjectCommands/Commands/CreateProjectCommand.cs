@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using Domain.Entities;
 using MediatR;
 
 
-namespace Application.ProjectCommands.Commands.CreateProject
+namespace Application.ProjectCommands.Commands
 {
     public class CreateProjectCommand : IRequest<Guid>
     {
@@ -16,8 +11,6 @@ namespace Application.ProjectCommands.Commands.CreateProject
         public string ClientCompanyName { get; set; }
         public string PerformerCompanyName { get; set; }
         public int Priority { get; set; }
-        public DateTime StartProjectDate { get; set; }
-        public DateTime FinishProjectDate { get; set; }
     }
     public class CreateProjectCommandHandler : IRequestHandler<CreateProjectCommand, Guid>
     {
@@ -31,12 +24,12 @@ namespace Application.ProjectCommands.Commands.CreateProject
             var project = new Project
             {
                 Id = Guid.NewGuid(),
-                Name = command.Name,
-                ClientCompanyName = command.ClientCompanyName,
-                PerformerCompanyName = command.PerformerCompanyName,
-                Priority = command.Priority,
-                StartProjectDate = command.StartProjectDate,
-                FinishProjectDate = command.FinishProjectDate,
+                Name = "command.Name",
+                ClientCompanyName = "command.ClientCompanyName",
+                PerformerCompanyName = "command.PerformerCompanyName",
+                Priority = 1,
+                StartProjectDate = DateTime.UtcNow,
+                FinishProjectDate = DateTime.UtcNow,
             };
 
             await _context.Projects.AddAsync(project, cancellationToken);

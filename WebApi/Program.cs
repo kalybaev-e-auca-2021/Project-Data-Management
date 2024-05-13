@@ -1,8 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
-using Infrastructure;
 using Project.WebApi;
-namespace Notes.WebApi
+namespace WebApi
 {
     public class Program
     {
@@ -16,7 +15,8 @@ namespace Notes.WebApi
                 try
                 {
                     var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
-                }catch (Exception ex) { }
+                }
+                catch (Exception ex) { }
             }
 
             host.Run();

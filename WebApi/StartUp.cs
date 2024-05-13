@@ -1,16 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using System;
-using Application.Common;
 using System.Reflection;
-using Application.Interfaces;
-using Application;
-using Infrastructure;
-
 
 namespace Project.WebApi
 {
@@ -29,6 +23,7 @@ namespace Project.WebApi
                 config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
                 config.AddProfile(new AssemblyMappingProfile(typeof(IApplicationDbContext).Assembly));
             });
+
             services.AddApplication();
             services.AddPersistence(Configuration);
             services.AddControllers();
