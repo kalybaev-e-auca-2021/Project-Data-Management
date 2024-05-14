@@ -19,6 +19,7 @@ namespace Tests.Common
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
+
             var context = new ApplicationDbContext(options);
             context.Database.EnsureCreated();
             context.Projects.AddRange(new Project 
@@ -27,7 +28,7 @@ namespace Tests.Common
                 ClientCompanyName = "OpenAI",
                 PerformerCompanyName = "FaceBook",
                 Priority = 1,
-                Id = Guid.Parse("A6BB65BB-5AC2-4AFA-8A28-2616F675B825"),
+                Id = Guid.Parse("6A11B992-A97B-41A4-970E-692F5B0D23E8"),
                 StartProjectDate = DateTime.Today,
                 FinishProjectDate = DateTime.Today,
             },
@@ -37,7 +38,27 @@ namespace Tests.Common
                 ClientCompanyName = "OpenAI2",
                 PerformerCompanyName = "FaceBook2",
                 Priority = 1,
-                Id = Guid.Parse("A6BB65BB-5AC2-4AFA-8A28-2616F675B826"),
+                Id = Guid.Parse("B08B786E-B8DC-4052-9777-F1CD1D462955"),
+                StartProjectDate = DateTime.Today,
+                FinishProjectDate = DateTime.Today,
+            },
+            new Project
+            {
+                Name = "TestCompany3",
+                ClientCompanyName = "OpenAI3",
+                PerformerCompanyName = "FaceBook3",
+                Priority = 1,
+                Id = ProjectIdForDelete,
+                StartProjectDate = DateTime.Today,
+                FinishProjectDate = DateTime.Today,
+            },
+            new Project
+            {
+                Name = "TestCompany4",
+                ClientCompanyName = "OpenAI4",
+                PerformerCompanyName = "FaceBook4",
+                Priority = 1,
+                Id = ProjectIdForUpdate,
                 StartProjectDate = DateTime.Today,
                 FinishProjectDate = DateTime.Today,
             }

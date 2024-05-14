@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Application.ProjectExtensions
 {
-    public class ProjectLookUpDto
+    public class ProjectListDto
     {
-        public IEnumerable<ProjectDto> Projects { get; set; } = new List<ProjectDto>();
+        public IList<ProjectDto> Projects { get; set; }
     }
 }

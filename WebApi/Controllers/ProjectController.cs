@@ -11,10 +11,10 @@ namespace Project.WebApi.Controllers
         /// Контроллер чтобы получить список всех проектов
         /// </summary>
         [HttpGet("api/getProjects")]
-        [ProducesResponseType(typeof(ProjectLookUpDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProjectListDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllProjects()
         {
-            var query = new GetAllProjectQuery();
+            var query = new GetProjectListQuery();
             return Ok(await Mediator.Send(query));
         }
 
@@ -28,7 +28,7 @@ namespace Project.WebApi.Controllers
 
         [HttpDelete("api/deleteProject")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-        public async Task<IActionResult> DeleteProject(Guid Id)
+        public async Task<IActionResult> DeleteProject([FromQuery]Guid Id)
         {
             var command = new DeleteProjectCommand { ProjectId = Id };
             return Ok(await Mediator.Send(command));

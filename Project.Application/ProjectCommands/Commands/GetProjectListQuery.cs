@@ -8,38 +8,31 @@ using Application.ProjectExtensions;
 using Domain.Entities;
 namespace Application.ProjectCommands.Commands
 {
-    public class GetAllProjectQuery : IRequest<ProjectLookUpDto>
+    public class GetProjectListQuery : IRequest<ProjectListDto>
     {
-        [JsonIgnore] public ProjectLookUpDto projects { get; set; } = new();
     }
 
-    public class GetAllProjectQueryHandler
-        : IRequestHandler<GetAllProjectQuery, ProjectLookUpDto>
+    public class GetProjectListQueryHandler
+        : IRequestHandler<GetProjectListQuery, ProjectListDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
-        public GetAllProjectQueryHandler(
+        public GetProjectListQueryHandler(
             IApplicationDbContext context, IMapper mapper)
         {
             _mapper = mapper;
             _context = context;
         }
 
-        public async Task<ProjectLookUpDto> Handle(
-            GetAllProjectQuery request,
+        public async Task<ProjectListDto> Handle(
+            GetProjectListQuery request,
             CancellationToken cancellationToken)
         {
-            var projects = GetProjects();
-            request.projects.Projects = await projects
+            var projectQuery = await _context.Projects
                 .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
-            return request.projects;
+            return new ProjectListDto { Projects = projectQuery };
 
-        }
-        private IQueryable<Project> GetProjects()
-        {
-            return _context.Projects
-                .AsNoTracking();
         }
     }
 }

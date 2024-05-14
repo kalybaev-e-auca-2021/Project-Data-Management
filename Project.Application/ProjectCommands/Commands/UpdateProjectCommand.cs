@@ -40,6 +40,7 @@ namespace Application.ProjectCommands.Commands
             changeProject.Name = command.Name;
             changeProject.ClientCompanyName = command.ClientCompanyName;
             changeProject.PerformerCompanyName = command.PerformerCompanyName;
+            changeProject.Priority = command.Priority;
 
             await _context.SaveChangesAsync(cancellationToken);
             return Unit.Value;
