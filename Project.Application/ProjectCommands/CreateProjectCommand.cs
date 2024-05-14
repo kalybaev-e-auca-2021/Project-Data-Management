@@ -41,22 +41,19 @@ namespace Application.ProjectCommands
             return project.Id;
         }
     }
-}
-
-public class CreateProjectCommandValidator : AbstractValidator<CreateProjectCommand>
-{
-    public CreateProjectCommandValidator()
+    public class CreateProjectCommandValidator : AbstractValidator<CreateProjectCommand>
     {
-        RuleFor(r => r.Name)
-            .NotEmpty()
-            .MaximumLength(250);
-        RuleFor(r => r.ClientCompanyName)
-            .NotEmpty()
-            .MaximumLength(250);
-        RuleFor(r => r.PerformerCompanyName)
-            .NotEmpty()
-            .MaximumLength(250);
-        RuleFor(r => r.StartDate)
-            .NotEmpty();
+        public CreateProjectCommandValidator()
+        {
+            RuleFor(r => r.Name)
+                .NotEmpty()
+                .MaximumLength(250);
+            RuleFor(r => r.ClientCompanyName)
+                .NotEmpty()
+                .MaximumLength(250);
+            RuleFor(r => r.PerformerCompanyName)
+                .NotEmpty()
+                .MaximumLength(250);
+        }
     }
 }
