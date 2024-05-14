@@ -19,6 +19,8 @@ namespace Application.ProjectCommands
         public string ClientCompanyName { get; set; }
         public string PerformerCompanyName { get; set; }
         public string Priority { get; set; }
+        public DateTime StartProjectDate { get; set; }
+        public DateTime FinishProjectDate { get; set; }
     }
 
     public class UpdateProjectCommandHandler : IRequestHandler<UpdateProjectCommand, Unit>
@@ -40,6 +42,8 @@ namespace Application.ProjectCommands
             changeProject.ClientCompanyName = command.ClientCompanyName;
             changeProject.PerformerCompanyName = command.PerformerCompanyName;
             changeProject.Priority = command.Priority;
+            changeProject.StartProjectDate = command.StartProjectDate;
+            changeProject.FinishProjectDate = command.FinishProjectDate;
 
             await _context.SaveChangesAsync(cancellationToken);
             return Unit.Value;

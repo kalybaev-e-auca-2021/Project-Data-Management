@@ -3,13 +3,19 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System;
 using Application.Common;
 using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
 using Application.Interfaces;
 using Application;
 using Infrastructure;
 using WebApi.Middleware;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.Extensions.Options;
+using WebApi;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 
 namespace Project.WebApi
@@ -33,8 +39,17 @@ namespace Project.WebApi
             services.AddApplication();
             services.AddPersistence(Configuration);
             services.AddControllers();
+
+            var provider = services.BuildServiceProvider();
+            var configuration = provider.GetRequiredService<IConfiguration>();
+
             services.AddCors(options =>
             {
+                var frontendURL = configuration.GetValue<string>("frontend_url");
+                options.AddDefaultPolicy(r =>
+                {
+                    r.WithOrigins(frontendURL).AllowAnyMethod().AllowAnyHeader();
+                });
                 options.AddPolicy("AllowAll", policy =>
                 {
                     policy.AllowAnyHeader();
@@ -42,15 +57,13 @@ namespace Project.WebApi
                     policy.AllowAnyOrigin();
                 });
             });
-            services.AddSwaggerGen(config =>
-            {
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                config.IncludeXmlComments(xmlPath);
-            });
+            services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV");
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+            services.AddSwaggerGen();
+            services.AddApiVersioning();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -59,14 +72,21 @@ namespace Project.WebApi
             app.UseSwagger();
             app.UseSwaggerUI(cfg =>
             {
+                foreach(var description in provider.ApiVersionDescriptions)
+                {
+                    cfg.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+                        description.GroupName.ToUpperInvariant());
+                    cfg.RoutePrefix = string.Empty;
+                }
                 cfg.RoutePrefix = string.Empty;
                 cfg.SwaggerEndpoint("swagger/v1/swagger.json", "Projects API");
             });
             app.UseCustomExceptionHandler();
             app.UseRouting();
             app.UseHttpsRedirection();
+            app.UseCors();
             app.UseCors("AllowAll");
-
+            app.UseApiVersioning();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
