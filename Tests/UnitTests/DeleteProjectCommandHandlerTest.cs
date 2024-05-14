@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using Application.ProjectCommands.Commands;
+using Application.ProjectCommands;
 using Microsoft.EntityFrameworkCore;
 using Tests.Common;
 using Application.Common;

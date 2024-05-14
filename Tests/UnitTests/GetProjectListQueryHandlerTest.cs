@@ -1,5 +1,5 @@
 ﻿using Application.Interfaces;
-using Application.ProjectCommands.Commands;
+using Application.ProjectCommands;
 using Application.ProjectExtensions;
 using AutoMapper;
 using Infrastructure;

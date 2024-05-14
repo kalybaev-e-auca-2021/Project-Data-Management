@@ -1,18 +1,18 @@
 ﻿using Application.Interfaces;
-using Application.ProjectCommands.Commands;
+using Application.ProjectCommands;
 using Domain.Entities;
 using FluentValidation;
 using MediatR;
 
 
-namespace Application.ProjectCommands.Commands
+namespace Application.ProjectCommands
 {
     public class CreateProjectCommand : IRequest<Guid>
     {
         public string Name { get; set; }
         public string ClientCompanyName { get; set; }
         public string PerformerCompanyName { get; set; }
-        public int Priority { get; set; }
+        public string Priority { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
     }

@@ -1,6 +1,5 @@
 ﻿using Application.Common;
 using Application.Interfaces;
-using Application.ProjectCommands.Commands;
 using Domain.Entities;
 using FluentValidation;
 using MediatR;
@@ -11,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.ProjectCommands.Commands
+namespace Application.ProjectCommands
 {
     public class DeleteProjectCommand : IRequest<Unit>
     {
@@ -28,8 +27,8 @@ namespace Application.ProjectCommands.Commands
         public async Task<Unit> Handle(DeleteProjectCommand command, CancellationToken cancellationToken)
         {
             var changeProject = await _context.Projects
-                .FindAsync(new object[] {command.ProjectId}, cancellationToken);
-            if(changeProject == null)
+                .FindAsync(new object[] { command.ProjectId }, cancellationToken);
+            if (changeProject == null)
             {
                 throw new NotFoundException(nameof(changeProject), command.ProjectId);
             }

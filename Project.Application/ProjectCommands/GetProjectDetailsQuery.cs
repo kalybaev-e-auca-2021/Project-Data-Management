@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.ProjectCommands.Commands
+namespace Application.ProjectCommands
 {
     public class GetProjectDetailsQuery : IRequest<ProjectDto>
     {
@@ -29,8 +29,9 @@ namespace Application.ProjectCommands.Commands
         public async Task<ProjectDto> Handle(GetProjectDetailsQuery command, CancellationToken cancellationToken)
         {
             var entity = _context.Projects
-                .FirstOrDefaultAsync(r => r.Id ==  command.Id, cancellationToken);
-            if (entity == null) {
+                .FirstOrDefaultAsync(r => r.Id == command.Id, cancellationToken);
+            if (entity == null)
+            {
                 throw new NotFoundException(nameof(entity), command.Id);
             }
             return _mapper.Map<ProjectDto>(entity);

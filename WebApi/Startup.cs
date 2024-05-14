@@ -42,6 +42,12 @@ namespace Project.WebApi
                     policy.AllowAnyOrigin();
                 });
             });
+            services.AddSwaggerGen(config =>
+            {
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                config.IncludeXmlComments(xmlPath);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -50,6 +56,12 @@ namespace Project.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(cfg =>
+            {
+                cfg.RoutePrefix = string.Empty;
+                cfg.SwaggerEndpoint("swagger/v1/swagger.json", "Projects API");
+            });
             app.UseCustomExceptionHandler();
             app.UseRouting();
             app.UseHttpsRedirection();

@@ -1,15 +1,17 @@
-﻿using Application.ProjectCommands.Commands;
+﻿using Application.ProjectCommands;
 using Application.ProjectExtensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Project.WebApi.Controllers
 {
+    [Produces("application/json")]
     [Route("api/")]
     public class ProjectController : BaseController
     {
         /// <summary>
-        /// Контроллер чтобы получить список всех проектов
+        /// Gets the list of projects
         /// </summary>
+        /// <returns></returns>
         [HttpGet("api/getProjects")]
         [ProducesResponseType(typeof(ProjectListDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllProjects()
@@ -18,6 +20,10 @@ namespace Project.WebApi.Controllers
             return Ok(await Mediator.Send(query));
         }
 
+        /// <summary>
+        /// Creates a Project
+        /// </summary>
+        /// <returns></returns>
         [HttpPost("api/createProject")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateProject()
@@ -26,6 +32,12 @@ namespace Project.WebApi.Controllers
             return Ok(await Mediator.Send(command));
         }
 
+
+        /// <summary>
+        /// Deletes a project by ID
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpDelete("api/deleteProject")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteProject([FromQuery]Guid Id)

@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using Application.ProjectCommands.Commands;
+using Application.ProjectCommands;
 using Microsoft.EntityFrameworkCore;
 using Tests.Common;
 
@@ -21,7 +21,7 @@ public class CreateProjectCommandHandlerTest : TestCommandBase
             Name = projectName,
             ClientCompanyName = projectDetails,
             PerformerCompanyName = projectDetails,
-            Priority = 1,
+            Priority = "High",
             StartDate = DateTime.Today,
             EndDate = DateTime.Today
         }, CancellationToken.None);
@@ -29,6 +29,6 @@ public class CreateProjectCommandHandlerTest : TestCommandBase
         //Assert
         Assert.NotNull(await Context.Projects.SingleOrDefaultAsync(r => r.Id == projectId && r.ClientCompanyName == projectDetails
         && r.PerformerCompanyName == projectDetails
-        && r.Priority == 1));
+        && r.Priority == "High"));
     }
 }

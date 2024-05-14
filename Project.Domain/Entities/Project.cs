@@ -13,7 +13,7 @@ namespace Domain.Entities
         public string Name { get; set; }
         public string ClientCompanyName { get; set; }
         public string PerformerCompanyName { get; set; }
-        public int Priority { get; set; }
+        public string Priority { get; set; }
         public DateTime StartProjectDate { get; set; }
         public DateTime FinishProjectDate { get; set; }
 

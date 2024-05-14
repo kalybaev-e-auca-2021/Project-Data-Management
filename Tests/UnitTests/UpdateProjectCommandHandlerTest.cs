@@ -1,5 +1,5 @@
 ﻿using Application.Common;
-using Application.ProjectCommands.Commands;
+using Application.ProjectCommands;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,12 +26,12 @@ namespace Tests.UnitTests
                 Name = updateDetails,
                 ClientCompanyName = updateDetails,
                 PerformerCompanyName = updateDetails,
-                Priority = 2
+                Priority = "High"
             }, CancellationToken.None);
 
             //Assert
             Assert.NotNull(await Context.Projects.SingleOrDefaultAsync(r => r.Id == ProjectContextFactory.ProjectIdForUpdate
-            && r.Name == updateDetails && r.ClientCompanyName == updateDetails && r.PerformerCompanyName == updateDetails && r.Priority == 2));
+            && r.Name == updateDetails && r.ClientCompanyName == updateDetails && r.PerformerCompanyName == updateDetails && r.Priority == "High"));
         }
 
         [Fact]

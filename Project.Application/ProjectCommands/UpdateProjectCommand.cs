@@ -1,6 +1,5 @@
 ﻿using Application.Common;
 using Application.Interfaces;
-using Application.ProjectCommands.Commands;
 using Domain.Entities;
 using FluentValidation;
 using MediatR;
@@ -11,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.ProjectCommands.Commands
+namespace Application.ProjectCommands
 {
     public class UpdateProjectCommand : IRequest<Unit>
     {
@@ -19,7 +18,7 @@ namespace Application.ProjectCommands.Commands
         public string Name { get; set; }
         public string ClientCompanyName { get; set; }
         public string PerformerCompanyName { get; set; }
-        public int Priority { get; set; }
+        public string Priority { get; set; }
     }
 
     public class UpdateProjectCommandHandler : IRequestHandler<UpdateProjectCommand, Unit>
@@ -49,10 +48,10 @@ namespace Application.ProjectCommands.Commands
 
     public class UpdateProjectCommandValidator : AbstractValidator<UpdateProjectCommand>
     {
-        public UpdateProjectCommandValidator() 
+        public UpdateProjectCommandValidator()
         {
             RuleFor(r => r.Id)
                 .NotEmpty();
-        }  
+        }
     }
 }

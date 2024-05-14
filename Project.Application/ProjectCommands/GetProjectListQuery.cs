@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Application.ProjectExtensions;
 using Domain.Entities;
-namespace Application.ProjectCommands.Commands
+namespace Application.ProjectCommands
 {
     public class GetProjectListQuery : IRequest<ProjectListDto>
     {
