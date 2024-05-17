@@ -19,6 +19,9 @@ namespace Domain.Entities
         public string Email { get; set; }
 
         [InverseProperty("Employee")]
+        public virtual Project? Project { get; set; }
+
+        [InverseProperty("Employee")]
         public virtual ICollection<EmployeeProject> EmployeeProjects { get; set; } = new List<EmployeeProject>();
     }
 }

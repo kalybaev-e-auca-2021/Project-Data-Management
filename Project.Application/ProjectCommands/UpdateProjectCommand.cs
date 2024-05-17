@@ -15,12 +15,12 @@ namespace Application.ProjectCommands
     public class UpdateProjectCommand : IRequest<Unit>
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string ClientCompanyName { get; set; }
-        public string PerformerCompanyName { get; set; }
-        public string Priority { get; set; }
-        public DateTime StartProjectDate { get; set; }
-        public DateTime FinishProjectDate { get; set; }
+        public string? Name { get; set; }
+        public string? ClientCompanyName { get; set; }
+        public string? PerformerCompanyName { get; set; }
+        public string? Priority { get; set; }
+        public DateTime? StartProjectDate { get; set; }
+        public DateTime? FinishProjectDate { get; set; }
     }
 
     public class UpdateProjectCommandHandler : IRequestHandler<UpdateProjectCommand, Unit>
@@ -38,12 +38,40 @@ namespace Application.ProjectCommands
             {
                 throw new NotFoundException(nameof(changeProject), command.Id);
             }
-            changeProject.Name = command.Name;
-            changeProject.ClientCompanyName = command.ClientCompanyName;
-            changeProject.PerformerCompanyName = command.PerformerCompanyName;
-            changeProject.Priority = command.Priority;
-            changeProject.StartProjectDate = command.StartProjectDate;
-            changeProject.FinishProjectDate = command.FinishProjectDate;
+            if(command.Name != null)
+            {
+                changeProject.Name = command.Name;
+            }
+            if (command.Name != null)
+            {
+                changeProject.Name = command.Name;
+            }
+
+            if (command.ClientCompanyName != null)
+            {
+                changeProject.ClientCompanyName = command.ClientCompanyName;
+            }
+
+            if (command.PerformerCompanyName != null)
+            {
+                changeProject.PerformerCompanyName = command.PerformerCompanyName;
+            }
+
+            if (command.Priority != null)
+            {
+                changeProject.Priority = command.Priority;
+            }
+
+            if (command.StartProjectDate != null)
+            {
+                changeProject.StartProjectDate = (DateTime)command.StartProjectDate;
+            }
+
+            if (command.FinishProjectDate != null)
+            {
+                changeProject.FinishProjectDate = (DateTime)command.FinishProjectDate;
+            }
+
 
             await _context.SaveChangesAsync(cancellationToken);
             return Unit.Value;
@@ -55,6 +83,18 @@ namespace Application.ProjectCommands
         public UpdateProjectCommandValidator()
         {
             RuleFor(r => r.Id)
+                .NotEmpty();
+            RuleFor(r => r.Name)
+                .NotEmpty();
+            RuleFor(r => r.FinishProjectDate)
+                .NotEmpty();
+            RuleFor(r => r.StartProjectDate)
+                .NotEmpty();
+            RuleFor(r => r.PerformerCompanyName)
+                .NotEmpty();
+            RuleFor(r => r.ClientCompanyName)
+                .NotEmpty();
+            RuleFor(r => r.Priority)
                 .NotEmpty();
         }
     }

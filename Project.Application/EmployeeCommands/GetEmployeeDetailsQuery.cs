@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using Application.ProjectExtensions;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -28,13 +29,15 @@ namespace Application.ProjectCommands
         }
         public async Task<EmployeeDetailsDto> Handle(GetEmployeeDetailsQuery command, CancellationToken cancellationToken)
         {
-            var entity = _context.Employees
-                .FirstOrDefaultAsync(r => r.Id == command.Id, cancellationToken);
+            var entity = await _context.Employees
+                .Where(r => r.Id == command.Id)
+                .ProjectTo<EmployeeDetailsDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(cancellationToken);
             if (entity == null)
             {
                 throw new NotFoundException(nameof(entity), command.Id);
             }
-            return _mapper.Map<EmployeeDetailsDto>(entity);
+            return entity;
         }
     }
 }

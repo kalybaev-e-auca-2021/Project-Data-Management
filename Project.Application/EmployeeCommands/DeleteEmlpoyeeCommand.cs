@@ -14,7 +14,7 @@ namespace Application.ProjectCommands
 {
     public class DeleteEmlpoyeeCommand : IRequest<Unit>
     {
-        public Guid ProjectId { get; set; }
+        public Guid EmployeeId { get; set; }
     }
 
     public class DeleteEmlpoyeeCommandHandler : IRequestHandler<DeleteEmlpoyeeCommand, Unit>
@@ -27,10 +27,10 @@ namespace Application.ProjectCommands
         public async Task<Unit> Handle(DeleteEmlpoyeeCommand command, CancellationToken cancellationToken)
         {
             var employee = await _context.Employees
-                .FindAsync(new object[] { command.ProjectId }, cancellationToken);
+                .FindAsync(new object[] { command.EmployeeId }, cancellationToken);
             if (employee == null)
             {
-                throw new NotFoundException(nameof(employee), command.ProjectId);
+                throw new NotFoundException(nameof(employee), command.EmployeeId);
             }
             _context.Employees.Remove(employee);
             await _context.SaveChangesAsync(cancellationToken);

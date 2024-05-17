@@ -11,6 +11,11 @@ namespace Domain.Entities
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public Guid? TeamLead {  get; set; }
+
+        [ForeignKey("TeamLead")]
+        [InverseProperty("Project")]
+        public virtual Employee? Employee { get; set; }
         public string ClientCompanyName { get; set; }
         public string PerformerCompanyName { get; set; }
         public string Priority { get; set; }

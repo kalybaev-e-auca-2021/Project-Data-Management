@@ -52,7 +52,7 @@ namespace Project.WebApi.Controllers
         /// <returns></returns>
         [HttpPost("createEmployee")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> CreateEmployee([FromQuery] CreateEmployeeCommand command)
+        public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
@@ -80,7 +80,7 @@ namespace Project.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteEmployee(Guid Id)
         {
-            var command = new DeleteProjectCommand { ProjectId = Id };
+            var command = new DeleteEmlpoyeeCommand { EmployeeId = Id };
             return Ok(await Mediator.Send(command));
         }
 
@@ -114,7 +114,7 @@ namespace Project.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("getProjectDetails")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ProjectDetailsDto>> GetProjectDetails(Guid Id)
+        public async Task<IActionResult> GetProjectDetails([FromQuery]Guid Id)
         {
             var query = new GetProjectDetailsQuery { Id = Id };
             return Ok(await Mediator.Send(query));
@@ -127,7 +127,7 @@ namespace Project.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("getEmployeeDetails")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetEmployeeDetails(Guid Id)
+        public async Task<IActionResult> GetEmployeeDetails([FromQuery]Guid Id)
         {
             var query = new GetEmployeeDetailsQuery { Id = Id };
             return Ok(await Mediator.Send(query));
@@ -140,10 +140,45 @@ namespace Project.WebApi.Controllers
         /// <returns></returns>
         [HttpPost("assignEmployee")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> AssignEmployee(Guid EmployeeId, Guid ProjectId)
+        public async Task<IActionResult> AssignEmployee([FromQuery] Guid EmployeeId, Guid ProjectId)
         {
             var command = new AssignEmployeeToProjectCommand { EmployeeId = EmployeeId, ProjectId = ProjectId };
             return Ok(await Mediator.Send(command));
+        }
+
+        /// <summary>
+        /// Gets the projects of employee working on by EmployeeId
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("getEmployeeProjects")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetEmployeeProjects([FromQuery] Guid Id)
+        {
+            var query = new GetEmployeeProjetcsQuery { EmployeeId = Id };
+            return Ok(await Mediator.Send(query));
+
+        }
+
+        [HttpGet("getNotAssignedProjectEmployees")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetNotAssignedEmployeeProjects([FromQuery] Guid Id)
+        {
+            var query = new GetNotAssignedProjectEmployeesQuery { Id = Id };
+            return Ok(await Mediator.Send(query));
+
+        }
+
+        /// <summary>
+        /// Gets the employees of a project by projectId
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("getProjectEmployees")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetProjectEmployees([FromQuery] Guid Id)
+        {
+            var query = new GetProjectEmployeesQuery { ProjectId = Id };
+            return Ok(await Mediator.Send(query));
+
         }
     }
 }

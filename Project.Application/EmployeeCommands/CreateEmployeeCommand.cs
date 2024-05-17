@@ -52,6 +52,7 @@ namespace Application.ProjectCommands
                 .MaximumLength(250);
             RuleFor(r => r.Email)
                 .NotEmpty()
+                .EmailAddress()
                 .MaximumLength(250);
         }
     }
