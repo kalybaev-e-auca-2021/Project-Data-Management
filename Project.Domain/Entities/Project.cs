@@ -19,8 +19,8 @@ namespace Domain.Entities
         public string ClientCompanyName { get; set; }
         public string PerformerCompanyName { get; set; }
         public string Priority { get; set; }
-        public DateTime StartProjectDate { get; set; }
-        public DateTime FinishProjectDate { get; set; }
+        public DateTime? StartProjectDate { get; set; }
+        public DateTime? FinishProjectDate { get; set; }
 
         [InverseProperty("Project")]
         public virtual ICollection<EmployeeProject> EmployeeProjects{ get; set; } = new List<EmployeeProject>();

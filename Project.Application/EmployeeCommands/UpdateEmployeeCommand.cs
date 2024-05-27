@@ -30,22 +30,22 @@ namespace Application.ProjectCommands
             {
                 throw new NotFoundException(nameof(employee), command.Id);
             }
-            if (command.FirstName != null)
+            if (command.FirstName != employee.FirstName)
             {
                 employee.FirstName = command.FirstName;
             }
 
-            if (command.LastName != null)
+            if (command.LastName != employee.LastName)
             {
                 employee.LastName = command.LastName;
             }
 
-            if (command.SurName != null)
+            if (command.SurName != employee.SurName)
             {
                 employee.SurName = command.SurName;
             }
 
-            if (command.Email != null)
+            if (command.Email != employee.SurName)
             {
                 employee.Email = command.Email;
             }

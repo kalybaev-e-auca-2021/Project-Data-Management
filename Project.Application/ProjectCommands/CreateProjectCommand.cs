@@ -46,14 +46,13 @@ namespace Application.ProjectCommands
         public CreateProjectCommandValidator()
         {
             RuleFor(r => r.Name)
-                .NotEmpty()
-                .MaximumLength(250);
+                .NotEmpty();
             RuleFor(r => r.ClientCompanyName)
-                .NotEmpty()
-                .MaximumLength(250);
+                .NotEmpty();
             RuleFor(r => r.PerformerCompanyName)
-                .NotEmpty()
-                .MaximumLength(250);
+                .NotEmpty();
+            RuleFor(r => r.Priority)
+                .NotEmpty();
         }
     }
 }

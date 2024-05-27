@@ -42,18 +42,14 @@ namespace Application.ProjectCommands
         public CreateEmployeeCommandValidator()
         {
             RuleFor(r => r.FirstName)
-                .NotEmpty()
-                .MaximumLength(250);
+                .NotEmpty();
             RuleFor(r => r.LastName)
-                .NotEmpty()
-                .MaximumLength(250);
+                .NotEmpty();
             RuleFor(r => r.SurName)
-                .NotEmpty()
-                .MaximumLength(250);
+                .NotEmpty();
             RuleFor(r => r.Email)
                 .NotEmpty()
-                .EmailAddress()
-                .MaximumLength(250);
+                .EmailAddress();
         }
     }
 }

@@ -1,14 +1,8 @@
 ﻿using Application.Common;
 using Application.Interfaces;
-using Domain.Entities;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.ProjectCommands
 {
@@ -38,36 +32,31 @@ namespace Application.ProjectCommands
             {
                 throw new NotFoundException(nameof(changeProject), command.Id);
             }
-            if(command.Name != null)
+            if(command.Name != changeProject.Name)
             {
                 changeProject.Name = command.Name;
             }
-            if (command.Name != null)
-            {
-                changeProject.Name = command.Name;
-            }
-
-            if (command.ClientCompanyName != null)
+            if (command.ClientCompanyName != changeProject.ClientCompanyName)
             {
                 changeProject.ClientCompanyName = command.ClientCompanyName;
             }
 
-            if (command.PerformerCompanyName != null)
+            if (command.PerformerCompanyName != changeProject.PerformerCompanyName)
             {
                 changeProject.PerformerCompanyName = command.PerformerCompanyName;
             }
 
-            if (command.Priority != null)
+            if (command.Priority != changeProject.Priority)
             {
                 changeProject.Priority = command.Priority;
             }
 
-            if (command.StartProjectDate != null)
+            if (command.StartProjectDate != changeProject.StartProjectDate)
             {
                 changeProject.StartProjectDate = (DateTime)command.StartProjectDate;
             }
 
-            if (command.FinishProjectDate != null)
+            if (command.FinishProjectDate != changeProject.FinishProjectDate)
             {
                 changeProject.FinishProjectDate = (DateTime)command.FinishProjectDate;
             }
